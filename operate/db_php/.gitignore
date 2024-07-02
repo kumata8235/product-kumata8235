@@ -1,0 +1,7 @@
+/templates/**
+!/templates/**/
+!/templates/**/.gitkeep
+
+/templates_c/**
+!/templates_c/**/
+!/templates_c/**/.gitkeep

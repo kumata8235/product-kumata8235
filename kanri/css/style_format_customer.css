@@ -1,0 +1,238 @@
+@charset "UTF-8";
+/*************************************
+* 初期設定
+*************************************/
+body{
+    color: #060606;
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #edecea;
+}
+a{
+    text-decoration: none;
+    color: #060606;
+}
+
+/*枠線の確認用に一時的に適用 後で削除*/
+/*
+body, header, footer, main, section, div, p, li, dt, dd, a{
+    margin: 10px;
+    padding: 10px;
+}
+header, footer, main, section{
+    border: 2px solid #f00;
+}
+section{
+    border: 2px solid #00f;
+}
+div, p{
+    border: 1px solid #f0f;
+}
+li, dt, dd, a{
+    border: 1px dotted #0f0;
+}
+*/
+/*削除はここまで*/
+
+/*************************************
+* header
+*************************************/ 
+.header {
+    width:100%;
+    height:100%;
+}
+
+.header__wrap {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header__wrap h1 {
+    font-size: 200%;
+}
+
+/*************************************
+* main
+*************************************/ 
+.main {
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-flow:column;
+}
+
+/*--button--*/
+/*--枠--*/
+.button__wrap {
+    width:100%;
+    display: flex;
+    align-items:center;
+    justify-content: right;
+}
+
+.button__wrap-table {
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-flow:column;
+}
+
+/*--本体--*/
+.button__item {
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/*--個別--*/
+#button_def {
+    background-color: #e95464; /* 赤系の背景色*/
+}
+
+#button_def:hover {
+    background-color: #d7003a; /* ホバー時の背景色*/
+}
+
+#button_back {
+    background-color: #00a3af; /* 緑系の背景色 */
+}
+
+#button_back:hover {
+    background-color: #008899; /* ホバー時の背景色 */
+}
+
+#button_del {
+    width: 100px;
+    background-color: #d9333f; /* 赤系の背景色 */
+}
+
+#button_del:hover {
+    background-color: #c9171e; /* ホバー時の背景色*/
+}
+
+/*--table--*/
+/*--枠--*/
+.table__wrap {
+    width:95%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-flow:column;
+}
+
+.table__box-title{
+    width: 100%;
+    display: flex;
+    align-items:center;
+}
+
+/*--Show Table--*/
+.table__box {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+
+    margin-top:10px;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    vertical-align: middle; /* 垂直方向の中央揃え */
+}
+
+td {
+    word-break: break-all; /* 追加 */
+}
+
+th {
+    background-color: #07c255;
+    text-align: center;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+tr:hover {
+    background-color: #ddd;
+}
+
+/*--画像サイズ--*/
+.table_imgbox {
+    width:50%;
+}
+
+/*--表示位置--*/
+.td__right {
+    text-align:right;
+}
+.td__center {
+    text-align: center;
+}
+.td__none{
+    display: none;
+}
+
+/*--表示サイズ--*/
+.th__proid {
+    width: 10%;
+}
+.th__pronam {
+    width:20%;
+}
+.th__proimg {
+    width:10%;
+}
+.th__protyp {
+    width:10%;
+}
+.th__proven {
+    width:10%;
+}
+.th__proday {
+    width:10%;
+}
+.th__prostr {
+    display:none;
+}
+.th__propri {
+    width:10%;
+}
+.th__prorel {
+    width:10%;
+}
+.th__prodat {
+    width:15%;
+}
+.th__prosubj {
+    width:15%;
+}
+
+/*************************************
+* footer
+*************************************/ 
+.footer {
+    width:100%;
+    height:100%;
+}
+
+.footer__wrap {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

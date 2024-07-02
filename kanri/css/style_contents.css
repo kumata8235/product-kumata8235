@@ -1,0 +1,122 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+h1, h2 {
+    color: #ed8123;
+}
+#product-table, #edit-table-form, #add-product-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+input[type="text"], input[type="file"], input[type="submit"] {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+input[type="submit"] {
+    background-color: #ed8123;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background-color: #357ABD;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* 隣接するセルのボーダーが1本になる */
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc; /* 各行の下に線を引く */
+}
+
+th {
+    background-color: #ed8123;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f4f4f9; /* 偶数行に背景色を設定 */
+}
+
+img {
+    width: 100px; /* 画像のサイズを指定 */
+    height: auto;
+}
+
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #4e4e4e;
+}
+
+.delete-btn {
+    background-color: #f44336; /* 削除ボタンは赤色 */
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    opacity: 0.8; /* ホバー時の透明度変化 */
+}
+
+#deleted_item {
+    color: #969696;
+}
+
+#deleted_product-table th {
+    background-color: #969696;
+    color: white;
+}
+
+
+
+
+.button_def {
+    background-color: #f44336;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.button_def:hover {
+    background-color: #d32f2f;
+}
+
+.button_back {
+    background-color: #4caf50; /* 緑系の背景色 */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.button_back:hover {
+    background-color: #388e3c; /* ホバー時の背景色 */
+}

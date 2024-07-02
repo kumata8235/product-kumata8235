@@ -1,0 +1,35 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+h1 {
+    color: #ed8123;
+    text-align: center;
+}
+.tablink {
+    background-color: #ed8123;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.tablink:hover {
+    background-color: #dd3e00;
+}
+.tabcontent {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: white;
+}
+iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+}

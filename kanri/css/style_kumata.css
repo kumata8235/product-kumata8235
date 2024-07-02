@@ -1,0 +1,535 @@
+@charset "UTF-8";
+/*************************************
+* 初期設定
+*************************************/
+body{
+    color: #060606;
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #edecea;
+}
+a{
+    text-decoration: none;
+    color: #060606;
+}
+
+/*枠線の確認用に一時的に適用 後で削除*/
+/*
+body, header, footer, main, section, div, p, li, dt, dd, a{
+    margin: 10px;
+    padding: 10px;
+}
+header, footer, main, section{
+    border: 2px solid #f00;
+}
+section{
+    border: 2px solid #00f;
+}
+div, p{
+    border: 1px solid #f0f;
+}
+li, dt, dd, a{
+    border: 1px dotted #0f0;
+}
+*/
+/*削除はここまで*/
+
+/*************************************
+* header
+*************************************/ 
+.header {
+    width:100%;
+    height:100%;
+}
+
+.header__wrap {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header__wrap h1 {
+    font-size: 200%;
+}
+
+/*************************************
+* main
+*************************************/ 
+.main {
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-flow:column;
+}
+
+/*--button--*/
+/*--枠--*/
+.button__wrap {
+    width:100%;
+    display: flex;
+    align-items:center;
+    justify-content: right;
+}
+
+.button__wrap-table {
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-flow:column;
+}
+
+.button__wrap__input {
+    width:100%;
+    display: flex;
+    align-items:center;
+    justify-content: right;
+    margin-top:10px;
+}
+
+/*--本体--*/
+.button__item {
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/*--個別--*/
+#button_new {
+    width: 100px;
+    background-color: #4d5aaf; /* 赤系の背景色 */
+}
+
+#button_new:hover {
+    background-color: #4a488e; /* ホバー時の背景色*/
+}
+
+#button_def {
+    background-color: #e95464; /* 赤系の背景色*/
+}
+
+#button_def:hover {
+    background-color: #d7003a; /* ホバー時の背景色*/
+}
+
+#button_back {
+    background-color: #00a3af; /* 緑系の背景色 */
+}
+
+#button_back:hover {
+    background-color: #008899; /* ホバー時の背景色 */
+}
+
+#button_edit {
+    width: 100px;
+    background-color: #3e62ad; /* 緑系の背景色 */
+}
+
+#button_edit:hover {
+    background-color: #1e50a2; /* ホバー時の背景色*/
+}
+
+#button_del {
+    width: 100px;
+    margin-top:20px;
+    background-color: #d9333f; /* 赤系の背景色 */
+}
+
+#button_del:hover {
+    background-color: #c9171e; /* ホバー時の背景色*/
+}
+
+#button_search {
+    background-color: #00a3af;
+}
+
+#button_serach:hover {
+    background-color: #008899; /* ホバー時の背景色 */
+}
+
+#button_close_ne,#button_close_s {
+    width: 125px;
+    background-color: #d9333f; /* 赤系の背景色 */
+}
+
+#button_close_ne:hover,#button_close_s:hover {
+    background-color: #c9171e; /* ホバー時の背景色*/
+}
+
+#button_submit_es,#button_submit_s {
+    width: 125px;
+    background-color: #3e62ad; /* 緑系の背景色 */
+}
+
+#button_submit_es:hover,#button_submit_s:hover {
+    background-color: #1e50a2; /* ホバー時の背景色*/
+}
+
+#button_clear {
+    width: 125px;
+    background-color: #00a3af; /* 緑系の背景色 */
+}
+
+#button_clear:hover {
+    background-color: #008899; /* 緑系の背景色 */
+}
+
+/*--table--*/
+/*--枠--*/
+.table__wrap {
+    width:95%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-flow:column;
+}
+
+.table__box-title{
+    width: 100%;
+    display: flex;
+    align-items:center;
+}
+
+/*--Show Table--*/
+.table__box {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+
+    margin-top:10px;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    vertical-align: middle; /* 垂直方向の中央揃え */
+}
+th {
+    background-color: #007bbb;
+    text-align: center;
+    color:#fff;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+tr:hover {
+    background-color: #ddd;
+}
+
+/*--画像サイズ--*/
+.table_imgbox {
+    width:50%;
+}
+
+/*--表示位置--*/
+.td__right {
+    text-align:right;
+}
+.td__center {
+    text-align: center;
+}
+.td__none{
+    display: none;
+}
+
+/*--表示サイズ--*/
+.th__proid {
+    width: 10%;
+}
+.th__pronam {
+    width:20%;
+}
+.th__proimg {
+    width:10%;
+}
+.th__protyp {
+    width:10%;
+}
+.th__proven {
+    width:10%;
+}
+.th__proday {
+    width:10%;
+}
+.th__prostr {
+    display:none;
+}
+.th__propri {
+    width:10%;
+}
+.th__prorel {
+    width:10%;
+}
+.th__prodat {
+    width:15%;
+}
+.th__prosubj {
+    width:15%;
+}
+
+/* 半透明の背景 */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明の背景色 */
+    display: none; /* 最初は非表示 */
+}
+
+.inputwindow__wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputwindow__conte {
+    flex: 1;
+    margin-right: 20px;
+}
+
+input[type="text"],input[type="date"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    height:45px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/*************************************
+* footer
+*************************************/ 
+.footer {
+    width:100%;
+    height:100%;
+}
+
+.footer__wrap {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputwindow__wrap {
+    width:100%;
+    display:flex;
+}
+
+.inputwindow__conte {
+    width:50%;
+    height: 500px;
+    display: flex;
+    flex-flow:column;
+
+    padding-top:20px;
+}
+
+.inputwindow__conte_full {
+    width:100%;
+    height:280px;
+    display: flex;
+    flex-flow:column;
+}
+
+.inputwindow__conte_search {
+    width:100%;
+    display: flex;
+    flex-flow:column;
+    padding-top:20px;
+}
+
+.inputwindow__item__serach {
+    width:100%;
+    display: flex;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#inputwindow__imgitem {
+    width:100%;
+    height:90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e8ecef;
+}
+
+.inputwindow_imgsuj {
+    width:100%;
+    height:10%;
+}
+
+/* input size */
+#product_id {
+    width:100px;
+}
+#product_name,#product_venu,#product_days {
+    width:500px;
+}
+#product_type,#product_price {
+    width:200px;
+}
+#product_story {
+    height:100%;
+}
+
+#product_rstart,#product_rend {
+    width:250px;
+}
+
+.str_right{
+    text-align: right;
+}
+
+/* ボタンのスタイル */
+.stylish-button {
+    background-color: #4CAF50; /* グリーン */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* ボタンのホバーエフェクト */
+.stylish-button:hover {
+    background-color: #45a049; /* より濃いグリーン */
+}
+
+.adjustable-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.15);
+    max-width: 90vw; /* 最大幅を画面の90%に設定 */
+    max-height: 90vh; /* 最大高さを画面の90%に設定 */
+    overflow-y: auto; /* 縦方向のスクロールを可能にする */
+}
+
+.adjustable-modal__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px 20px 20px;
+    cursor: grab;
+    
+    background-color: #007bbb;
+    color:#ffffff;
+}
+
+.header__title {
+    font-weight: 600;
+    font-size: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.header__close {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.header__close::before,
+.header__close::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    height: 2px;
+    background-color: #ccc;
+    content: '';
+}
+
+.header__close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.header__close::after {
+    transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.adjustable-modal__content {
+    padding: 0 20px;
+    border-top: solid 1px #ddd;
+    flex: 1 1 0;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+#selectpic{
+    margin-top:5px;
+}
+
+.search_ope {
+    margin-left:10px;
+}
+
+/* input size */
+#search_id {
+    width:200px;
+}
+#search_name,#search_venu,#search_days {
+    width:350px;
+}
+#search_type,#search_price {
+    width:200px;
+}
+#search_story {
+    width:350px;
+}
+#search_rstart,#search_rend {
+    width:250px;
+}
+
+#orderset {
+    margin-left:10px;
+}
