@@ -1,7 +1,8 @@
+/* スタイリッシュなデータベース接続エラーメッセージのスタイル */
 .db_error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    padding: 10px;
-    margin: 10px;
+    background-color: #f8d7da; /* 背景色 */
+    color: #721c24; /* テキスト色 */
+    border: 1px solid #f5c6cb; /* 枠線 */
+    padding: 10px; /* 内側の余白 */
+    margin: 10px; /* 外側の余白 */
 }

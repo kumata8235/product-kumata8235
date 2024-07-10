@@ -1,6 +1,8 @@
 <?php
-    // 取得できるデータ
-    // product AS p - ALL データ名は設計書通り
+    // このスクリプトは商品データの読込を行います
+    // Where句・Order句・Limit句が設定されている場合は追加します
+    // 取得できるデータ ALL 要素名は設計書通り
+    // 対象DB:Product 指定DB名:P
 
     //初期化
     $data_product = array();

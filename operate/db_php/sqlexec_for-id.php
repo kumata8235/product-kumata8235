@@ -1,16 +1,6 @@
 <?php
-//*************************************************//
-//  SQL実行-id情報の更新/取得まで
-//*************************************************//
-//  @author : kumata
-//  共有変数
-//  $sql_query_uid : SQL文-id更新用
-//  $sql_query_sid : SQL文-id取得用
-//  $sql_params    : プリペアドステートメント設定用
-//  $sql_stmt      : 実行結果
-//  $dbh           : DB接続
-//  $sql_result    : SQL実行結果-True:成功/False:失敗
-//*************************************************//
+    // このスクリプトは、ID管理から新規IDの発行を受けて対象のIDを取得します
+    // SQLクエリは他ファイルで設定されます
 
     // 初期化
     $sql_result = false; // defaultは失敗(False)
@@ -42,9 +32,10 @@
         // 実行
         $sql_stmt -> execute();
 
+        // 実行結果を取得
         $result_id = $sql_stmt -> fetch(PDO::FETCH_ASSOC);
 
-        // 成功
+        // SQLクエリ初期化
         $sql_query_uid = NULL;
         $sql_query_sid = NULL;
         

@@ -1,5 +1,12 @@
 <?php
-    // SQL文の種類を判別するための関数
+    // このスクリプトはSQL文に応じたエラーメッセージを生成します
+
+    /**
+    * SQLクエリの種類を判別する関数.
+    *
+    * @param {string} $query SQLクエリ
+    * @return {string} SQLクエリの種類 ("SELECT", "INSERT", "UPDATE", "DELETE", "DROP", "ALTER", "TRUNCATE", "CREATE", "RENAME", "UNKNOWN")
+    */
     function detectQueryType($query) {
         // SQL文を小文字に変換してから判定する
         $lowercaseQuery = strtolower($query);
@@ -28,7 +35,12 @@
         }
     }
 
-    // エラーメッセージを設定する関数
+    /**
+    * SQLクエリの種類に応じたエラーメッセージを設定する関数.
+    *
+    * @param {string} $query SQLクエリ
+    * @return {void} エラーメッセージを出力
+    */
     function setErrorMessage($query) {
         // エラーメッセージを設定するスイッチ文をここに記述
         switch (detectQueryType($query)) {
@@ -68,7 +80,12 @@
         echo $errorMessage;
     }
 
-    // データベース処理を終了する関数を定義
+    /**
+    * データベース接続を閉じる関数.
+    *
+    * @param {object|null} $dbh PDOオブジェクトまたはnull
+    * @return {void}
+    */
     function closeDatabaseConnection($dbh) {
         if ($dbh !== null) {
             $dbh = null; // データベース接続を閉じる

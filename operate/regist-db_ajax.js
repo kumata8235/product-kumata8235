@@ -1,79 +1,75 @@
-//*************************************************//
-//  regist_data_forDB - データ登録用関数
-//*************************************************//
-//  selectMode : 処理モード
-//  ajax_data  : 登録データ(FormData)
-//*************************************************//
-
+/**
+ * regist_data_forDB - データ登録用関数
+ * @param {string} selectMode - 処理モード
+ * @param {FormData} ajax_data - 登録データ
+ * @returns {Promise<boolean>} - データ登録の成功または失敗を示すPromise
+ */
 function regist_data_forDB(selectMode, ajax_data) {
     return new Promise((resolve, reject) => {
-        var setModeNumber = -1;
-        let showOpeErrMsg;
-        let showOpeSucMsg;
+        // 初期値設定
+        var setModeNumber = -1; // 処理モードの初期値(-1)設定
+        let showOpeErrMsg = ""; // エラーメッセージの初期値("")設定
+        let showOpeSucMsg = ""; // 成功メッセージの初期値("")設定
 
-        // 処理対象確認
+        // 処理モードの対象登録確認
+        // operate.phpで取得したiniOpeDataRegistを使用
         for (var i = 0; i < iniOpeDataRegist.length; i++) {
             if (iniOpeDataRegist[i][0] === selectMode) {
-                setModeNumber = i;
-                showOpeSucMsg = iniOpeDataRegist[i][1];
-                showOpeErrMsg = iniOpeDataRegist[i][2];
+                // 選択されたモードが見つかった場合、そのモード番号とメッセージを設定
+                setModeNumber = i; // 処理モード番号設定
+                showOpeSucMsg = iniOpeDataRegist[i][1]; // 成功メッセージ取得
+                showOpeErrMsg = iniOpeDataRegist[i][2]; // エラーメッセージ取得
                 break;
             }
         }
 
-        // 発見できなかった
+        // 対象の処理モードが発見できなかった場合の処理
         if (setModeNumber === -1) {
+            // エラーメッセージをアラートで表示
             alert('正しい処理が選択されませんでした。');
             reject('正しい処理が選択されませんでした。');
             return;
         }
 
-        // 処理モードの追加
+        // 処理モードをajaxに送るデータへ追加
         ajax_data.append('selectMode',selectMode);
 
+        // AJAXリクエストの実行
         $.ajax({
-            url: './../operate/regist-db_ajax.php',
-            type: 'POST',
-            data: ajax_data,
-            processData: false,
-            contentType: false,
+            url: './../operate/regist-db_ajax.php', // リクエスト先のURL
+            type: 'POST', // リクエストタイプ
+            data: ajax_data, // 送信データ
+            processData: false, // データの処理をjQueryに任せない
+            contentType: false, // Content-Typeの設定をjQueryに任せない
             success: function(response) {
-                // responseにerror:が含まれる？
+                // responseにerror:が含まれているか確認
                 if (response.includes("error:")) {
                     // "error:" を区切り文字として、エラーコードを取得する
                     var errorCodes = response.split("error:").slice(1);
                     // エラーコードをスペースで結合して、指定されたフォーマットで表記する
                     var showErrCodes = "(" + errorCodes.join(" ") + ")";
 
+                    // 処理モードに応じて分岐がある場合
                     switch (selectMode) {
-                        case 'reservation-fai':
-                            // 在庫数が足りなかった場合
-                            if (errorCodes.includes('Z002')) {
-                                // ユーザーに在庫不足の通知を表示
-                                alert('大変申し訳ございません。ご希望の数量をご用意することができませんでした。');
-                            } else {
-                                alert(showOpeErrMsg + showErrCodes);
-                            }
-                            break;
-                        default:
+                        default: // 通常
+                            // エラーメッセージをアラートで表示
                             alert(showOpeErrMsg + showErrCodes);
                             break;
                     }
-                    reject(showOpeErrMsg + showErrCodes);
+                    reject(showOpeErrMsg + showErrCodes); // Promiseを拒否
                 } else {
                     switch (selectMode) {
-                        case 'reservation-fai': //何もしない
-                            break;
                         default:
                             alert(showOpeSucMsg);
                             break;
                     }
-                    resolve(true);
+                    resolve(true); // Promiseを解決
                 }
             },
             error: function(xhr, status, error) {
+                // エラーメッセージをアラートで表示
                 alert(showOpeErrMsg);
-                reject(showOpeErrMsg);
+                reject(showOpeErrMsg); // Promiseを拒否
             }
         });
     });

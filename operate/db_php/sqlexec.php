@@ -1,14 +1,5 @@
 <?php
-//*************************************************//
-//  SQL実行
-//*************************************************//
-//  @author : kumata
-//  共有変数
-//  $sql_query     : SQL文
-//  $sql_params    : プリペアドステートメント設定用
-//  $sql_stmt      : 実行結果
-//  $dbh           : DB接続
-//*************************************************//
+    // このスクリプトは,他ファイルで設定されたSQLを実行します
 
     // 初期化
     $sql_result = false; // defaultは失敗(False)
@@ -36,7 +27,7 @@
 
             return true;
         } else {
-            // 失敗
+            // 実行失敗時のエラー表示
             echo '<link rel="stylesheet" href="./css/style_tdb.css">';
             echo '<div class="db_error-message">';
             $error_message = setErrorMessage($sql_query);

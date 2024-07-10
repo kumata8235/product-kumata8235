@@ -1,152 +1,168 @@
-// 現表示フラグ
-var show_dataFlgConte;
-var show_euFlg;
-var selectFileFlg;
-var registChkFlg;
+// 使用変数の宣言と初期化
 
-//バリデーションチェック
-//背景色設定用
-var flgOK_bgc = 'rgb(162, 215, 221)' //瓶覗
-var flgNG_bgc = 'rgb(242, 160, 161)' //紅梅色
-var flgNw_bgc = 'rgb(255, 255, 255)' //初期色
-var flgup_bgc = 'rgb(233, 228, 212)' //初期編集色
+// 各表示切替/状態チェックフラグ
+var show_dataFlgConte; // 現データ/削除済みデータ表示切替フラグ 0:現データのみ 1:削除済みデータのみ
+var show_euFlg; // モーダル表示切替フラグ 0:新規 1:更新 -1:該当なし
+var selectFileFlg; // 新しいファイルのアップロードフラグ 0:なし 1:あり
+var registChkFlg; // 登録実行結果フラグ true:成功 false:失敗
 
-// 各種設定
-var setWhereData= [[''],[''],[''],[''],['']];
-var setOrderData= [[''],[''],['']];
-var setLimitData= ['',''];
-var setWhereExData= [[''],['']];
+//バリデーションチェック用
+//背景色設定
+var flgOK_bgc = 'rgb(162, 215, 221)' //入力OK背景
+var flgNG_bgc = 'rgb(242, 160, 161)' //入力NG背景
+var flgNw_bgc = 'rgb(255, 255, 255)' //入力通常背景
+var flgup_bgc = 'rgb(233, 228, 212)' //入力更新有背景
 
-//読み込み時
+// 各種設定データ
+var setWhereData= [[''],[''],[''],[''],['']]; // Where条件の初期化
+var setOrderData= [[''],[''],['']]; // Order条件の初期化
+var setLimitData = ['', '']; // Limit条件の初期化
+var setWhereExData = [[''], ['']]; // 例外的なWhere条件の初期化
+
+// 読み込み完了時の処理
 document.addEventListener("DOMContentLoaded", function() { 
-    show_dataFlgConte = 0;   
-    load_data_forProduct('def');
+    show_dataFlgConte = 0; // デフォルト(現データ)データ表示フラグ
+    load_data_forProduct('def'); // 'def(現データ)' を指定して製品データを読み込む
 });
 
-// ロード
+// 製品データの読み込み
 function load_data_forProduct(readFlg) {
 
-    // 読込内容分岐
+    // 読み込みフラグに応じた処理を分岐
     switch (readFlg) {
-        case 'def':
-        case 'del':
-            // 基本データ
+        case 'def': // 現データ表示
+        case 'del': // 削除済みデータ表示
+            // 基本データの設定
             if (readFlg === 'def') {
                 setWhereData = [['p'],['deletedAt'],['IS NULL'],[''],['']];
             } else {
                 setWhereData = [['p'],['deletedAt'],['IS NOT NULL'],[''],['']];
             }
-            // 初期化
+            // 各種設定データ初期化
             setOrderData = [[''],[''],['']];
             setLimitData = ['',''];
             setWhereExData = [[''],['']];
             break;
-        case 'reload':
-            // 何もかえない
+        case 'reload': // 再読み込み
+            // 再読み込みのため各種データの設定変更はしない
             break;
-        default:
-            retrun;
+        default: // 処理内容なし
+            retrun; // 何もしない
     }
 
+    // 製品データのDB読み込み
     load_data_forDB('product-ba',setWhereData,setOrderData,setLimitData,setWhereExData);
 }
 
-// 削除済み一覧/商品一覧に戻るボタンがクリックされたときの処理
+// class名"button__item"が設定された各種ボタンが押されたときの処理
 $(document).on("click", ".button__item", function(event) {
     // クリックされたボタンのIDを取得
     var setId = $(this).attr("id");
 
-    // ID分岐
+    // IDに応じた処理分岐
     switch (setId) {
         case "button_def":
-            show_dataFlgConte = 1; 
-            load_data_forProduct('del');
+            // 削除済み一覧ボタンがクリックされた場合
+            show_dataFlgConte = 1; // 削除済みデータ表示フラグ
+            load_data_forProduct('del'); // 'del(削除済みデータ)' を指定して製品データを読み込む
 
-            // ID変更
+            // ボタンのテキストとIDを切り替えて「商品一覧に戻る」に変更
             $(this).attr("id", "button_back");
             $(this).text("商品一覧に戻る");
             break;
         case "button_back":
-            show_dataFlgConte = 0; 
-            load_data_forProduct('def');
+            // 商品一覧に戻るボタンがクリックされた場合
+            show_dataFlgConte = 0; // デフォルト(現データ)データ表示フラグ
+            load_data_forProduct('def'); // 'def(現データ)' を指定して製品データを読み込む
 
-            // ID変更
+            // ボタンのテキストとIDを切り替えて「削除済み一覧」に変更
             $(this).attr("id", "button_def");
             $(this).text("削除済み一覧");
             break;
         case "button_new":
-            var imageSrc = "./../ninja/img_course/no_image.jpg";
-            vm.displayImage(imageSrc);
-            vm.openModal(0);            
+            // 新規登録ボタンがクリックされた場合
+            var imageSrc = "./../ninja/img_course/no_image.jpg"; // デフォルト画像ファイルパスを取得
+            vm.displayImage(imageSrc); // モーダル内のイメージ表示領域にデフォルト画像をセット
+            vm.openModal(0); // 商品-新規/更新用モーダルを新規モードでオープン
             break;
         case "button_edit":
-            // クリックされたボタンのdata-item属性を取得
+            // 商品編集ボタンがクリックされた場合
+            // クリックされたボタンに設定されたdata-item属性から商品IDを取得
             var itemCode = $(this).data("item");
             var row = $(this).closest('tr'); // 編集する行を取得
 
             // フォームにデータをセット
-            $('#product_id').val(itemCode)
-            $('#product_id').css('background-color', flgup_bgc);
-            $('#product_name').val(row.find('td:eq(1)').text())
-            $('#product_name').css('background-color', flgup_bgc);
-            // テーブルから画像のsrc属性を取得する
-            var imageSrc = row.find('td:eq(2) img').attr('src');
-            if (imageSrc.slice(-1) === '/') {imageSrc += "no_image.jpg"};
-            vm.displayImage(imageSrc);
-            $('#product_type').val(row.find('td:eq(3)').text())
-            $('#product_type').css('background-color', flgup_bgc);
-            $('#product_venu').val(row.find('td:eq(4)').text())
-            $('#product_venu').css('background-color', flgup_bgc);
-            $('#product_days').val(row.find('td:eq(5)').text())
-            $('#product_days').css('background-color', flgup_bgc);
-            $('#product_price').val(addFormatStr(row.find('td:eq(7)').text(),'bmoney'));
-            $('#product_price').css('background-color', flgup_bgc);
-            var data = row.find('td:eq(8)').text(); // 例えば "rstart/rend"
+            $('#product_id').val(itemCode) // 商品コード
+            $('#product_id').css('background-color', flgup_bgc); // 背景を更新色へ
+            $('#product_name').val(row.find('td:eq(1)').text()) // 商品名
+            $('#product_name').css('background-color', flgup_bgc); // 背景を更新色へ
+            var imageSrc = row.find('td:eq(2) img').attr('src'); // 商品画像URL
+            if (imageSrc.slice(-1) === '/') {imageSrc += "no_image.jpg"}; // 対象商品画像URLがなければ、デフォルト画像のURL追加
+            vm.displayImage(imageSrc); // 商品イメージをセット
+            $('#product_type').val(row.find('td:eq(3)').text()) // 商品タイプ
+            $('#product_type').css('background-color', flgup_bgc); // 背景を更新色へ
+            $('#product_venu').val(row.find('td:eq(4)').text()) // 開催地
+            $('#product_venu').css('background-color', flgup_bgc); // 背景を更新色へ
+            $('#product_days').val(row.find('td:eq(5)').text()) // 開催期間
+            $('#product_days').css('background-color', flgup_bgc); // 背景を更新色へ
+            $('#product_price').val(addFormatStr(row.find('td:eq(7)').text(),'bmoney')); // 金額
+            $('#product_price').css('background-color', flgup_bgc); // 背景を更新色へ
+            var data = row.find('td:eq(8)').text(); // リリース日/リリース終了日を取得
             // '/'を区切り文字としてデータを分割
             var dataArray = data.split('/');
-            $('#product_rstart').val(dataArray[0]); // rstart
-            $('#product_rstart').css('background-color', flgup_bgc);
-            $('#product_rend').val(dataArray[1]); // rend
-            $('#product_rend').css('background-color', flgup_bgc);
-            $('#product_story').val(row.find('td:eq(6)').text())
-            $('#product_story').css('background-color', flgup_bgc);
-            vm.openModal(1);
+            $('#product_rstart').val(dataArray[0]); // リリース日
+            $('#product_rstart').css('background-color', flgup_bgc); // 背景を更新色へ
+            $('#product_rend').val(dataArray[1]); // リリース終了日
+            $('#product_rend').css('background-color', flgup_bgc); // 背景を更新色へ
+            $('#product_story').val(row.find('td:eq(6)').text()) // ストーリー
+            $('#product_story').css('background-color', flgup_bgc); // 背景を更新色へ
+            vm.openModal(1); // 商品-新規/更新用モーダルを更新モードでオープン
             break;
         case "button_search":
-            vms.openModal();
+            // 検索ボタンがクリックされた場合
+            vms.openModal(); // 商品検索用のモーダルオープン
             break;
         case "button_close_ne":
-            vm.closeModal();
-            event.preventDefault();
+            // 商品-新規/更新用モーダル内の閉じるボタンがクリックされた場合
+            vm.closeModal(); // 商品-新規/更新用モーダルをクローズ
+            event.preventDefault(); // ブラウザが通常行う動作をキャンセル
             break;
         case "button_close_s":
-            vms.closeModal();
-            event.preventDefault();
+            // 商品検索用のモーダル内の閉じるボタンがクリックされた場合
+            vms.closeModal(); // 商品検索用モーダルをクローズ
+            event.preventDefault(); // ブラウザが通常行う動作をキャンセル
             break;
         case "button_submit_es":
+            // 商品-新規/更新用モーダル内の実行ボタンがクリックされた場合
+            // モーダルで指定しているため何もしない
             break;
         case "button_submit_s":
-            Search_Data();
+            // 商品検索用のモーダル内の検索実行ボタンがクリックされた場合
+            Search_Data(); // データ検索を実行
             break;
         case "button_del": 
-            // クリックされたボタンのdata-item属性を取得
+            // 削除ボタンがクリックされた場合
+            // クリックされたボタンに設定されたdata-item属性から商品IDを取得
             var itemCode = $(this).data("item");
 
-            // 確認ダイアログを表示
+            // 確認ダイアログを表示内容を設定
             var confirmDelete = confirm("商品ID:" + itemCode + "を本当に削除しますか？");
 
+            // 確認ダイアログを表示してOKが押された場合に削除処理を行う
             if (confirmDelete) {
+                // データ初期化
                 var setData = new FormData();
 
                 // データセット
-                setData.append('product_id', itemCode);
-                setData.append('deletedAt',"");
+                setData.append('product_id', itemCode); // 商品ID
+                setData.append('deletedAt',""); // 削除日は自動で設定されるので""を指定
 
-                registChkFlg = false;
+                registChkFlg = false; // 登録実行結果フラグ初期化
+                // 削除処理の実行
                 regist_data_forDB('product-bau', setData)
                 .then(function(registChkFlg) {
                     if (registChkFlg === true) {
-                        load_data_forProduct("reload");
+                        load_data_forProduct("reload"); // 削除に成功した場合にデータを再読込み
                     }
                 })
                 .catch(function(error) {
@@ -155,13 +171,16 @@ $(document).on("click", ".button__item", function(event) {
             }
             break;
         case "button_clear":
-            ClearSearch();
+            // 検索クリアボタンがクリックされた場合
+            ClearSearch(); // 検索条件をクリアする
             break;
         default:
-            // 規定外のIDだった場合
+            // その他のIDの場合は何もしない
             break;
     }
 });
+
+//-- ここからさきはまだコメント処理作成途中--//
    
 function showtableforproduct(data) {
     var html_response = '';

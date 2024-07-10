@@ -1,49 +1,45 @@
 <?php
-//*************************************************//
-//  Ajax利用DB書込
-//*************************************************//
-//  @author : kumata
-//  共有変数
-//  $sql_query    : SQL文
-//  $sql_params   : プリペアドステートメント設定用
-//  $where_clause : WHERE句
-//  $sort_clause  : ORDER句
-//*************************************************//
-    //初期化
+    // このスクリプトは、データベース接続を行い、選択されたモードに基づいて特定のファイルを実行し、処理結果をJSON形式で返します
+
+    // 初期化
     $err_msg = "";
 
-    // データベースに接続する処理
+    // データベースに接続する処理を含むファイルを読み込む
     require(__DIR__ . '/db_php/function.php');
-    // エラーハンドラ
+    // エラーハンドラを含むファイルを読み込む
     require_once(__DIR__ . '/db_php/error_handler.php');
-    // データベースに接続する処理
+    // データベースに接続する処理を含むファイルを読み込む
     $con_result = require_once(__DIR__ . '/db_php/dbconnect.php');
     
     // 接続に成功したかをチェック
-    if (!$con_result){
-        echo 'error:d101'; // エラーメッセージをJSON形式で返す
+    if (!$con_result) {
+        // 接続失敗時にエラーメッセージを返す
+        echo json_encode(array("error" => "d101"));
         exit();
     }
     
     // ファイルパスの設定
-    //$file_path = __DIR__ . '/regist_php/' . $_POST['selectMode'] . '.php';
-    $file_path = __DIR__ . '/regist_php/' . 'product-bau.php';
+    $file_path = __DIR__ . '/regist_php/' . $_POST['selectMode'] . '.php';
 
-    // ファイルが存在する？
+    // 指定されたファイルが存在するか確認
     if (file_exists($file_path)) {
+        // ファイルが存在する場合、ファイルを実行
         $con_result = require($file_path);
+        // 実行結果にエラーメッセージが含まれているかチェック
         if (strpos($con_result, "error:") !== false) {
-            echo $con_result;
+            // エラーがある場合、エラーメッセージを返す
+            echo json_encode(array("error" => $con_result));
             exit();
         }
     } else {
-        // ファイルが存在しない場合の処理
-        echo "error:f101";
+        // ファイルが存在しない場合、エラーメッセージを返す
+        echo json_encode(array("error" => "f101"));
         exit();
     }
 
-    // DB接続終了
+    // データベース接続を終了する関数を登録
     register_shutdown_function('closeDatabaseConnection', $dbh);
 
-    echo json_encode(array("success" => true)); // 成功したことを示すJSONを返す
+    // 処理が成功したことを示すJSONを返す
+    echo json_encode(array("success" => true));
 ?>

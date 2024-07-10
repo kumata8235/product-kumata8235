@@ -1,4 +1,6 @@
 <?php
+    // データベースへの接続とSmartyの初期化およびSQL実行する際の各種変数の初期化を行うスクリプト
+
     // DB情報の取得
     require_once(__DIR__ . '/dbconnectinfo.php');
 
@@ -22,14 +24,14 @@
     }
 
     // 初期化
-    $sql_query = NULL;
-    $sql_stmt = NULL;
-    $sql_params = array();
-    $sql_query_sid = NULL;
-    $sql_query_uid = NULL;
+    $sql_query = NULL; // SQLクエリの初期化
+    $sql_stmt = NULL; // SQLステートメントの初期化
+    $sql_params = array(); // SQLパラメータの初期化
+    $sql_query_sid = NULL; // SQLクエリ（新規ID取得用）の初期化
+    $sql_query_uid = NULL; // SQLクエリ（新規ID発行用）の初期化
 
-    // smartyの初期化
-    //テンプレート利用準備
+    // Smartyの初期化
+    // テンプレート利用準備
     require_once (__DIR__ .'/smarty/Smarty.class.php');
 
     $smarty = new Smarty();
